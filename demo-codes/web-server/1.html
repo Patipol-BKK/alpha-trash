@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DLTrash</title>
+		<link rel="stylesheet" media="screen and (min-device-width: 600px)" href="desktop.css" />
+		<link rel="stylesheet" media="screen and (max-device-width: 600px)" href="mobile.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<header class="top-bar">
+			<span class="navigation">
+				<span class="header-left">
+					<div class="img-wrapper">
+						<img src="list.png" width="20" height="20" onclick="openNav()">
+					</div>
+					<div class="tab-wrapper">
+						<img src="database.png" width="20" height="20"> 
+					</div>
+					<a>Logs</a>
+				</span>
+				<div class="search-wrapper">
+					<img src="search.png" width="20" height="20" onclick="openSearch()">
+				</div>
+			</span>
+		</header>
+		<div class="log-table-wrapper" id="logs">
+			<table style="width:100%" id="log-table">
+				<tr id="template">
+					<td>
+						<div class="img-table-wrapper">
+							<img id="trash-image" width="128" height="72">
+						</div>
+						<div class="info-table">
+							<p id="date">Date : -</p>
+							<p id="classifier">Classifier : -</p>
+							<p id="category">Category : -</p>
+							<p id="sub-category">Location : -</p>
+							<p id="confidence">Confidence : -</p>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="graphs" id="graphs" >
+			<div id="piechart"></div>
+		</div>
+		<div id="overlay" onclick="closeBars()"></div>
+
+		<div class="side-nav" id="side-menu">
+			<button id="log-button" onclick="openLog();">Logs</button>
+			<button id="chart-button" onclick="openChart();">Chart</button>
+		</div>
+
+		<div id="search-back">
+			<img src="left-arrow.png" width="20" height="20" onclick="closeBars()">
+			<input type="text" id="search" contenteditable="true" value="search logs" onClick="deleteSearch()">
+		</div>
+		<script type="text/javascript">
+			document.getElementById("graphs").style.display = "none"
+			function openNav(){
+				document.getElementById("side-menu").style.width = "250px";
+				document.getElementById("overlay").style.visibility = "visible";
+				document.getElementById("overlay").style.opacity = "0.2";
+			}
+
+			function closeBars(){
+				document.getElementById("overlay").style.opacity = "0";
+				document.getElementById("overlay").style.visibility = "hidden";
+
+				document.getElementById("side-menu").style.width = "0px";
+				document.getElementById("search-back").style.height = "0px";
+			}
+
+			function openSearch(){
+				document.getElementById("search-back").style.height = "42px";
+				document.getElementById("overlay").style.visibility = "visible";
+				document.getElementById("overlay").style.opacity = "0.2";
+
+				document.getElementById("search").style.color = "#9E9E9E"
+				document.getElementById("search").value = "search logs";
+			}
+
+			function deleteSearch(){
+				document.getElementById("search").value = "";
+				document.getElementById("search").style.color = "#212121"
+			}
+
+			function openLog(){
+				document.getElementById("graphs").style.display = "none"
+				document.getElementById("logs").style.display = "block"
+			}
+			function openChart(){
+				document.getElementById("graphs").style.display = "block"
+				document.getElementById("logs").style.display = "none"
+			}
+
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+
+			// Draw the chart and set the chart values
+			function drawChart(list) {
+				var title = [['Type','Amount']];
+			 	var data = google.visualization.arrayToDataTable(title.concat(list));
+
+			  // Optional; add a title and set the width and height of the chart
+				var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+				// Display the chart inside the <div> element with id="piechart"
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				chart.draw(data, options);
+			}
+			
+			window.setInterval(function(){
+				$.ajax({ url: 'server-function.php',
+						data: {action: 'get-all'},
+						type: 'post',
+						success: function(output)
+						{
+							console.log(output);
+							output_conv = JSON.parse(output);
+							console.log(output_conv);
+							for(i = 0; i < output_conv.length; i++)
+							{
+								if (document.getElementById("trash"+i) == null)
+								{
+									var table = document.getElementById('log-table')
+									var itm = document.getElementById('template');
+									var cln = itm.cloneNode(true);
+									table.prepend(cln);
+									cln.id = "trash" + i;
+									cln.querySelector("#trash-image").id = "trash-image" + i;
+									cln.querySelector("#date").id = "date" + i;
+									cln.querySelector("#classifier").id = "classifier" + i;
+									cln.querySelector("#category").id = "category" + i;
+									cln.querySelector("#sub-category").id = "sub-category" + i;
+									cln.querySelector("#confidence").id = "confidence" + i;
+									document.getElementById("trash-image"+i).src = "data:image/png;base64," + output_conv[i][1];
+									document.getElementById("date"+i).innerHTML = "Date : " + output_conv[i][5];
+									document.getElementById("classifier"+i).innerHTML = "Classifier : " + output_conv[i][0];
+									document.getElementById("category"+i).innerHTML = "Category : " + output_conv[i][3];
+									document.getElementById("sub-category"+i).innerHTML = "Location : " + output_conv[i][4];
+									document.getElementById("confidence"+i).innerHTML = "Confidence : " + output_conv[i][2];
+								}
+							}
+							document.getElementById("templatwe").style.display = "none";
+						}
+					});
+				}, 1000);
+		</script>
+	</body>

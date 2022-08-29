@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css?family=Prompt:200,300');
+
+body {
+   margin: 0;
+   padding: 0;
+   background-color: #FAFAFA;
+}
+
+table,th,td{
+	border: 1px solid #E0E0E0;
+	border-collapse: collapse;
+}
+.img-table-wrapper{
+	float: left;
+	padding: 10px;
+}
+.info-table{
+	float: left;
+	padding: 10px;
+}
+.info-table p{
+	text-align: left;
+	font-family: Open Sans;
+}
+.log-table-wrapper{
+	margin-top: 42px;
+}
+.navigation{
+	height: 42px;
+	width: 100%;
+	display: block;
+}
+
+.header-left{
+	height: auto;
+	width: auto;
+	float: left;
+}
+
+.header-left a{
+	font-family: Open Sans;
+	color: #FAFAFA;
+	padding: 10px;
+	font-size: 1em;
+	float: left;
+}
+
+.header-left div{
+	float: left;
+}
+
+.header-left div img{
+	margin-top: 12px;
+}
+
+.log-tab{
+	width: 10px;
+	height: 2px;
+	background-color: #FAFAFA;
+	display: block;
+	float: left;
+}
+
+.top-bar{
+	background-color: #4CAF50;
+	height: auto;
+	position: fixed;
+	width: 100%;
+	top: 0;
+}
+
+.img-wrapper{
+	width: 42px;
+	height: 42px;
+	float: left;
+
+}
+
+.img-wrapper img{
+	display: block;
+	margin: auto;
+	vertical-align: middle;
+}
+
+.tab-wrapper{
+	margin-left: 15px;
+}
+
+.search-wrapper{
+	float: right;
+	padding: 10px;
+}
+
+#overlay{
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	opacity: 0;
+	transition: 0.5s;
+	visibility: hidden;
+}
+
+#search-back{
+	height: 0px;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #FAFAFA;
+	border-bottom: 1px solid #E0E0E0;
+	transition: 0.3s;
+	overflow-x: hidden;
+
+	overflow: hidden;	
+}
+
+#search-back img{
+	margin: 12px;
+	float: left;
+}
+
+#search-back input{
+	margin: 10px;
+	font-family: Open Sans;
+	font-size: 1.3em;
+	background-color: #FAFAFA;
+	float: left;
+	border-style: hidden;
+}
+
+.side-nav{
+	height: 100%;
+	width: 0px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.status-circle{
+	float: right;
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AlphaTrash</title>
+		<meta http-equiv="Content-Language" content="th" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="main_mobile.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Prompt:200,300&amp;subset=thai" rel="stylesheet">
+	</head>
+	<body>
+		<div class="navigation">
+			<img src="images/list-menu.png" width="30" height="30" onclick="openSide()">
+			<h1 id="main_title">Garbage Data</h1>
+		</div>
+		<div class="left_back"></div>
+		<div class="overview" id="overview">
+			<h2>Garbage Level</h2>
+			<h3>[AlphaTrash-Prototype1]</h3>
+			<div class="recycle">
+				<div class="main_bar">
+					<img src="images/recycle-sign.png" width="55" height="55">
+					<h1>Recycle</h1>
+					<div class="progress_bar" id="Recycle_main">
+						<div class="progress_bar_back" id="Recycle_main_back"></div>
+						<div class="progress_bar_front" id="Recycle_main_front"></div>
+						<h3 id="Recycle_main_num">40%</h3>
+					</div>
+				</div>
+				<div class="sub_bar" id="plastic">
+					<img src="images/water.png" width="55" height="55">
+					<h1>Plastic</h1>
+					<div class="progress_bar" id="Recycle_Plastic">
+						<div class="progress_bar_back" id="Recycle_Plastic_back"></div>
+						<div class="progress_bar_front" id="Recycle_Plastic_front"></div>
+						<h3 id="Recycle_Plastic_num">40%</h3>
+					</div>
+				</div>
+				<div class="sub_bar" id="metal">
+					<img src="images/can.png" width="55" height="55">
+					<h1>Metal</h1>
+					<div class="progress_bar" id="Recycle_Metal">
+						<div class="progress_bar_back" id="Recycle_Metal_back"></div>
+						<div class="progress_bar_front" id="Recycle_Metal_front"></div>
+						<h3 id="Recycle_Metal_num">40%</h3>
+					</div>
+				</div>
+				<div class="sub_bar" id="paper">
+					<img src="images/coffee-break.png" width="55" height="55">
+					<h1>Paper</h1>
+					<div class="progress_bar" id="Recycle_Paper">
+						<div class="progress_bar_back" id="Recycle_Paper_back"></div>
+						<div class="progress_bar_front" id="Recycle_Paper_front"></div>
+						<h3 id="Recycle_Paper_num">40%</h3>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="organic">
+				<div class="main_bar">
+					<img src="images/apple.png" width="55" height="55">
+					<h1>Organic Waste</h1>
+					<div class="progress_bar" id="Organic_main">
+						<div class="progress_bar_back" id="Organic_main_back"></div>
+						<div class="progress_bar_front" id="Organic_main_front"></div>
+						<h3 id="Organic_main_num">40%</h3>
+					</div>
+				</div>
+			</div>
+			
+			<hr>
+			<div class="general">
+				<div class="main_bar">
+					<img src="images/trash.png" width="55" height="55">
+					<h1>Ganeral Waste</h1>
+					<div class="progress_bar" id="General_main">
+						<div class="progress_bar_back" id="General_main_back"></div>
+						<div class="progress_bar_front" id="General_main_front"></div>
+						<h3 id="General_main_num">40%</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="side-nav" id="side-menu">
+			<div class="account-panel">
+				<img src="images/Guest.png" width="55" height="55">
+				<h1>Guest</h1>
+				<h2>Account</h2>
+			</div>
+			<div class="classifier-panel">
+				<h2>General Waste</h2>
+				<div class="classifier-select">
+					<div class="classifier-main" id="prt1">
+						<img src="images/Arrow.png" width="11" height="6" class="arrow-expand">
+						<h1>AlphaTrash - Prt 1</h1>
+						<img src="images/status-on.png" width="10" height="10" class="status-circle">
+					</div>
+					<h3 class="classifier-sub" onclick="openMain()">Garbage Data</h3>
+					<h3 class="classifier-sub" onclick="openLog()">Logs</h3>
+
+					<div class="classifier-main" id="prt2">
+						<img src="images/Arrow.png" width="11" height="6" class="arrow-expand">
+						<h1>AlphaTrash - Prt 2</h1>
+						<img src="images/status-on.png" width="10" height="10" class="status-circle">
+					</div>
+					<h3 class="classifier-sub" onclick="openMain()">Garbage Data</h3>
+					<h3 class="classifier-sub" onclick="openLog()">Logs</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="overlay" id="overlay" onclick="closeSide()"></div>
+
+		<div class="log-table-wrapper" id="logs">
+			<table style="width:100%" id="log-table">
+				<tr id="template">
+					<td>
+						<div class="img-table-wrapper">
+							<img id="trash-image" width="128" height="72">
+						</div>
+						<div class="info-table">
+							<p id="date">Date : -</p>
+							<p id="classifier">Classifier : -</p>
+							<p id="category">Category : -</p>
+							<p id="sub-category">Location : -</p>
+							<p id="confidence">Confidence : -</p>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<script type="text/javascript">
+			var page = 0;
+			openMain()
+			function collapsePrototype1(){
+				document.getElementsByClassName("classifier-sub").height = "0px";
+			}
+			function openSide(){
+				document.getElementById("side-menu").style.width = "300px";
+				document.getElementById("overlay").style.display = "block";
+				document.getElementById("overlay").style.opacity = "0.3";
+			}
+			function closeSide(){
+				document.getElementById("side-menu").style.width = "0px";
+				document.getElementById("overlay").style.opacity = "0";
+				document.getElementById("overlay").style.display = "none";
+			}
+			function openMain(){
+				setBars()
+				document.getElementById("overview").style.display = "block";
+				document.getElementById("logs").style.display = "none";
+				document.getElementById("main_title").innerHTML = "Garbage Data"
+				closeSide()
+				page = 0;
+				console.log("0");
+			}
+			function openLog(){
+				setPics()
+				document.getElementById("overview").style.display = "none";
+				document.getElementById("logs").style.display = "block";
+				document.getElementById("main_title").innerHTML = "Logs"
+				closeSide()
+				page = 1;
+				console.log("1");
+			}
+			function create_bar_chart(chart_id){
+				chart_back = document.createElement('div');
+				chart_back.setAttribute("id",chart_id + "_back");
+				back.style.height = "30px";
+				back.style.width = "20%"
+
+				chart_front = document.createElement('div');
+				chart_front = document.setAttribute("id",chart_id + "_front");
+
+				chart_percent = document.createElement('div');
+				chart_percent = document.setAttribute("id",chart_id + "_percent");
+
+
+			}
+			function setBars(){
+				var classify_types = [['Recycle','Plastic'],['Recycle','Paper'],['Recycle','Metal'],['Organic','main'],['Danger','main'],['General','main']]
+				for(var types in classify_types){
+					console.log(classify_types[types][0])
+					$.ajax({ url: 'server-function.php',
+					data: {action: 'get-percent',type: classify_types[types][0],sub_type: classify_types[types][1]},
+					type: 'post',
+						success: function(output)
+						{
+							console.log(output);
+							output = JSON.parse(output);
+							console.log(output);
+							console.log(output[2]+"_"+output[3]+"_front");
+							document.getElementById(output[2]+"_"+output[3]+"_front").style.width = output[0] + "%";
+							document.getElementById(output[2]+"_"+output[3]+"_back").style.width = output[1] + "%";
+							if(output[0] == 33)document.getElementById(output[2]+"_"+output[3]+"_num").innerHTML = "Garbage Level : Low";
+							else if(output[0] == 67)document.getElementById(output[2]+"_"+output[3]+"_num").innerHTML = "Garbage Level : Medium";
+							else if(output[0] == 0)document.getElementById(output[2]+"_"+output[3]+"_num").innerHTML = "Garbage Level : Nan";
+							else document.getElementById(output[2]+"_"+output[3]+"_num").innerHTML = "Garbage Level : High";
+
+							if(parseInt(output[0]) == 33)document.getElementById(output[2]+"_"+output[3]+"_front").style.backgroundColor = "#8BC34A";
+							//else if(parseInt(output[0]) == 67)document.getElementById(output[2]+"_"+output[3]+"_front").style.backgroundColor = "#FFC107";
+							else if(parseInt(output[0]) == 67)document.getElementById(output[2]+"_"+output[3]+"_front").style.backgroundColor = "#FF9800";
+							else document.getElementById(output[2]+"_"+output[3]+"_front").style.backgroundColor = "#e53935";
+							//document.getElementById(classify_types[types][0]+"_"+classify_types[types][1]+"_num").style.width = (output*100).toString() + "%";
+
+						}
+					});
+				}
+			}
+			function setPics(){
+				$.ajax({ url: 'server-function.php',
+					data: {action: 'get-all'},
+					type: 'post',
+					success: function(output)
+					{
+						console.log(output);
+						output_conv = JSON.parse(output);
+						console.log(output_conv);
+						for(i = 0; i < output_conv.length; i++)
+						{
+							if (document.getElementById("trash"+i) == null)
+							{
+								var table = document.getElementById('log-table')
+								var itm = document.getElementById('template');
+								var cln = itm.cloneNode(true);
+								table.prepend(cln);
+								cln.id = "trash" + i;
+								cln.querySelector("#trash-image").id = "trash-image" + i;
+								cln.querySelector("#date").id = "date" + i;
+								cln.querySelector("#classifier").id = "classifier" + i;
+								cln.querySelector("#category").id = "category" + i;
+								cln.querySelector("#sub-category").id = "sub-category" + i;
+								cln.querySelector("#confidence").id = "confidence" + i;
+								document.getElementById("trash-image"+i).src = "data:image/png;base64," + output_conv[i][1];
+								document.getElementById("date"+i).innerHTML = "Date : " + output_conv[i][5];
+								document.getElementById("classifier"+i).innerHTML = "Classifier : " + output_conv[i][0];
+								document.getElementById("category"+i).innerHTML = "Category : " + output_conv[i][3];
+								document.getElementById("sub-category"+i).innerHTML = "Location : " + output_conv[i][4];
+								document.getElementById("confidence"+i).innerHTML = "Confidence : " + output_conv[i][2];
+							}
+						}
+					}
+				});
+			}
+			document.getElementById("Recycle_main").style.visibility = "hidden";
+			window.setInterval(function(){
+				if(page==0){
+					setBars()
+				}
+			},5000);
+			window.setInterval(function(){
+				if(page==1){
+					setPics()
+				}
+			}, 6000);
+		</script>
+	</body>
