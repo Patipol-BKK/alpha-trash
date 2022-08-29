@@ -3,4 +3,6 @@ Implementation used in the paper: Automatic Trash Classification using Convoluti
 
 Paper link: https://ieeexplore.ieee.org/document/9095775
 
--> Currently tidying code and adding demos
+`demo-codes` folder contains code used in demonstrations of the prototype
+
+-> Currently tidying up code and adding comments
