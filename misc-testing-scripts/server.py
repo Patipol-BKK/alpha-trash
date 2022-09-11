@@ -2,8 +2,8 @@ import pymysql.cursors
 import base64
 
 host_name = "127.0.0.1"
-user_name = "dltrhizm"
-password_str = "RzbFrATtI0fE"
+user_name = "usrname"
+password_str = "pswd"
 
 transfer_db = "dltrhizm_img-transfer"
 record_db = "dltrhizm_record"
