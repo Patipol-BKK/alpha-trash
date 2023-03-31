@@ -45,7 +45,7 @@ python run_system.py
 
 This will start the hardware controls and image recognition functions. The board will look for signals that signify trash input then take a top-down picture of the trash that has been inserted into the compartment and saved it as image.jpeg within the directory. The operation script classify_operation.py would be called to classify using the trained model.
 
-Alternatively, the image recognition script can be run on its own to classify a set of images. Put all the testing images into a folder and run classify.py using the following script:
+Alternatively, the image recognition script can be run on its own to classify a set of images. Put all the testing images into a folder and run classify.py using the following script (sample images has already been provided in`test/`):
 ```bash
 python classify.py tf_files/retrained_labels.txt tf_files/retrained_graph.pb path/to/testing_images_folder
 ```
