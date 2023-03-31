@@ -27,7 +27,7 @@ cd demo-codes/rpi/
 pip install -r requirements.txt
 ```
 
-4. Download the model files, `retrained_graph.pb` and `retrained_labels.txt`, from releases and put them in tf_files folder
+4. Download the model files, `retrained_graph.pb` and `retrained_labels.txt`, from [releases](https://github.com/Patipol-BKK/alphatrash/releases) and put them in tf_files folder
 ```
 demo-codes/
 ├── rpi/
